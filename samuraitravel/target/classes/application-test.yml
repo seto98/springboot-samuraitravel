@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/springboot_samuraitravel_test
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      encoding: utf-8
+      mode: always
+stripe: 
+  api-key: sk_test_51QMUkXBz42A5tlf6fFOXpRl1CsNulINuiKj274o49Pg4oPejS6JDLFw7COZRA0QsxT05YC3g1goB7jvMkbtpnSSb00FeHg2T9Z
+  success-url: http://localhost:8080/reservations?reserved
+  cancel-url: http://localhost:8080/reservations/confirm
