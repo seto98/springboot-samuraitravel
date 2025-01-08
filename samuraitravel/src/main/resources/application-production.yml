@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      encoding: UTF-8
+      mode: always
+  mail:
+    host: ${MAILGUN_SMTP_SERVER}
+    port: ${MAILGUN_SMTP_PORT}
+    username: ${MAILGUN_SMTP_LOGIN}
+    password: ${MAILGUN_SMTP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  servlet:
+    multipart:
+      max-file-size: 5MB
+
+stripe:
+  api-key: ${STRIPE_API_KEY}
+  success-url: ${STRIPE_SUCCESS_URL}
+  cancel-url: ${STRIPE_CANCEL_URL}
+  webhook-secret: ${STRIPE_WEBHOOK_SECRET}

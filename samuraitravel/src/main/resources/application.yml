@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: samuraitravel
+  datasource: 
+    url: jdbc:mySQL://localhost:3306/samuraitravel_db
+    username: root
+    password: Passw0rd
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql: 
+    init: 
+      encoding: UTF-8
+      mode: always
+  servlet: 
+    multipart: 
+      max-file-size: 5MB
+  mail: 
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: 6bbf6f44b0e985
+    password: 62b216e839548b
+    properties: 
+      mail: 
+        smtp: 
+          auth: true
+          starttls: 
+            enable: true
+stripe: 
+  api-key: sk_test_51QMUkXBz42A5tlf6fFOXpRl1CsNulINuiKj274o49Pg4oPejS6JDLFw7COZRA0QsxT05YC3g1goB7jvMkbtpnSSb00FeHg2T9Z
+  success-url: http://localhost:8080/reservations?reserved
+  cancel-url: http://localhost:8080/reservations/confirm
+  webhook-secret: whsec_ccccd89a872c623bfc7dc3480b126f12cfb3210ede1bc84e623f42ec1f93efa5
