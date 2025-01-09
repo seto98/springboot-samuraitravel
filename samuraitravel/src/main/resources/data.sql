@@ -101,11 +101,11 @@ INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (9
 INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (10, 1, 10, '&#9733&#9733&#9733&#9733&#9733', '清潔感があり、気持ちよく滞在できました。');
 INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (11, 1, 1, '&#9733&#9734&#9734&#9734&#9734', 'ご飯がおいしくなかった。');
 INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (12, 2, 1, '&#9733&#9733&#9733&#9733&#9733', '【ペンション SAMURAI】部屋が綺麗で、快適に過ごせました。');
-INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (13, 2, 2, '&#9733&#9733&#9733&#9733&#9734', '【ペンション SAMURAI】アクセスが良く、観光に最適でした。');
+INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (13, 2, 2, '&#9733&#9733&#9733&#9733&#9734', '【ペンション SAMURAI】アクセスが良く、観光に最適でした。友達に勧めます。');
 INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (14, 2, 3, '&#9733&#9733&#9733&#9734&#9734', '【ペンション SAMURAI】スタッフが親切で、気持ちよく滞在できました。');
 INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (15, 2, 4, '&#9733&#9733&#9734&#9734&#9734', '【ペンション SAMURAI】駅から近く、便利でした。');
 INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (16, 2, 5, '&#9733&#9734&#9734&#9734&#9734', '【ペンション SAMURAI】周辺の飲食店が充実していて、楽しめました。');
-INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (17, 2, 6, '&#9733&#9733&#9733&#9733&#9733', '【ペンション SAMURAI】宿泊費が手頃で、コストパフォーマンスが良かったです。');
+INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (17, 2, 6, '&#9733&#9733&#9733&#9733&#9733', '【ペンション SAMURAI】宿泊費が手頃でコストパフォーマンスが良かった。');
 INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (18, 3, 1, '&#9733&#9733&#9733&#9733&#9733', '【SAMURAI荘】部屋が綺麗で、快適に過ごせました。');
 INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (19, 3, 2, '&#9733&#9733&#9733&#9733&#9734', '【SAMURAI荘】アクセスが良く、観光に最適でした。');
 INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (20, 3, 3, '&#9733&#9733&#9733&#9734&#9734', '【SAMURAI荘】スタッフが親切で、気持ちよく滞在できました。');
