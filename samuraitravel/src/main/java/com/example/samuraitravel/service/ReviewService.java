@@ -34,12 +34,15 @@ public class ReviewService {
 		this.houseRepository = houseRepository;
 		this.userRepository = userRepository;
 	}
-
+	
 	/**
 	 * レビュー一覧表示
 	 */
-	public Page<Review> findAllByOrderByCreatedAtDesc(Pageable pageable) {
-		return reviewRepository.findAllByOrderByCreatedAtDesc(pageable);
+	public Page<Review> findByHouseIdOrderByCreatedAtDesc(Integer houseId, Pageable pageable) {
+		return reviewRepository.findByHouseIdOrderByCreatedAtDesc(houseId, pageable);
+	}
+	public List<Review> findByHouseIdOrderByCreatedAtDescList(Integer houseId) {
+		return reviewRepository.findByHouseIdOrderByCreatedAtDesc(houseId);
 	}
 
 	/**

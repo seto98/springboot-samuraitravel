@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,10 +20,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.samuraitravel.entity.House;
 import com.example.samuraitravel.entity.Review;
+import com.example.samuraitravel.entity.User;
 import com.example.samuraitravel.form.ReviewEditForm;
 import com.example.samuraitravel.form.ReviewRegisterForm;
+import com.example.samuraitravel.security.UserDetailsImpl;
 import com.example.samuraitravel.service.HouseService;
 import com.example.samuraitravel.service.ReviewService;
+
+import jakarta.servlet.http.HttpSession;
 
 /**
  * レビューページ・機能を制御
@@ -41,12 +46,23 @@ public class ReviewController {
 
 	// レビュー表示（一覧表示）
 	@GetMapping
-	public String index(@PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.ASC) Pageable pageable,
-			Model model) {
+	public String index(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
+			@PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.ASC) Pageable pageable,
+			Model model, HttpSession session) {
 		Page<Review> reviewPage;
 		// 全件検索
-		reviewPage = reviewService.findAllByOrderByCreatedAtDesc(pageable);
+		// Integer houseId = 1;
+		Integer houseId = (Integer) session.getAttribute("houseId");
+		reviewPage = reviewService.findByHouseIdOrderByCreatedAtDesc(houseId, pageable);
 		model.addAttribute("reviewPage", reviewPage);
+
+		Integer userId = null;
+		if (userDetailsImpl != null) {
+			User user = userDetailsImpl.getUser();
+			userId = user.getId();
+			model.addAttribute("userId", userId);
+		}
+
 		return "reviews/index";
 	}
 

@@ -23,7 +23,8 @@ import com.example.samuraitravel.form.ReservationInputForm;
 import com.example.samuraitravel.security.UserDetailsImpl;
 import com.example.samuraitravel.service.HouseService;
 import com.example.samuraitravel.service.ReviewService;
-import com.stripe.model.tax.Registration.CountryOptions.Is;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/houses")
@@ -84,27 +85,41 @@ public class HouseController {
 
 	@GetMapping("/{id}")
 	public String show(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, @PathVariable(name = "id") Integer id,
-			RedirectAttributes redirectAttributes, Model model) {
+			RedirectAttributes redirectAttributes, Model model, HttpSession session) {
 		Optional<House> optionalHouse = houseService.findHouseById(id);
 
 		if (optionalHouse.isEmpty()) {
 			redirectAttributes.addFlashAttribute("errorMessage", "民宿が存在しません。");
-
 			return "redirect:/houses";
 		}
 
 		House house = optionalHouse.get();
 		model.addAttribute("house", house);
+		Integer houseId = house.getId();
+		session.setAttribute("houseId", houseId);
 		model.addAttribute("reservationInputForm", new ReservationInputForm());
+
+		Integer userId = null;
+		if (userDetailsImpl != null) {
+			User user = userDetailsImpl.getUser();
+			userId = user.getId();
+			model.addAttribute("userId", userId);
+		}
 
 		List<Review> reviewsList = reviewService.findTop6ByHouseIdOrderByCreatedAtDesc(house.getId());
 		model.addAttribute("reviewsList", reviewsList);
 
-		if (userDetailsImpl != null) {
-			User user = userDetailsImpl.getUser();
-			Integer userId = user.getId();
-			model.addAttribute("userId", userId);
+		boolean idCheckFlag = false;
+		for (Review review : reviewsList) {
+			if (review.getUser().getId() == userId) {
+				idCheckFlag = true;
+				break;
+			}
 		}
+		model.addAttribute("idCheckFlag", idCheckFlag);
+
+		List<Review> allReviewsList = reviewService.findByHouseIdOrderByCreatedAtDescList(house.getId());
+		model.addAttribute("allReviewsList", allReviewsList);
 
 		return "houses/show";
 	}

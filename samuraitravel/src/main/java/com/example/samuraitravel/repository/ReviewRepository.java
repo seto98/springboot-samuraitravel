@@ -13,7 +13,8 @@ import com.example.samuraitravel.entity.Review;
  */
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
 	// レビュー一覧表示
-	public Page<Review> findAllByOrderByCreatedAtDesc(Pageable pageable);
+	public Page<Review> findByHouseIdOrderByCreatedAtDesc(Integer houseId, Pageable pageable);
+	public List<Review> findByHouseIdOrderByCreatedAtDesc(Integer houseId);
 
 	// レビュー表示（6件のみ）
 	public List<Review> findTop6ByHouseIdOrderByCreatedAtDesc(Integer houseId);
