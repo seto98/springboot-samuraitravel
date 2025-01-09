@@ -46,6 +46,37 @@
 										<small class="text-muted" th:text="${review.getCreatedAt()}"></small>
 									</p>
 									<p class="card-text mb-1" th:text="${review.getDetail()}"></p>
+
+									<div th:if="${review.getUser().getId() == userId}">
+										<a th:href="@{/reviews/__${review.id}__/edit}">編集</a>
+										<a href="#" class="samuraitravel-link-danger" data-bs-toggle="modal"
+											th:data-bs-target="${'#deleteReviewModal' + review.id}">削除</a>
+										<!-- </div> -->
+
+										<!-- 削除用モーダル -->
+										<div class="modal fade" th:id="${'deleteReviewModal' + review.id}" tabindex="-1"
+											th:aria-labelledby="${'deleteHouseReviewLabel' + review.id}">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title"
+															th:id="${'deleteReviewModalLabel' + review.id}"
+															th:text="${review.house.name + 'のレビューを削除してもよろしいですか？'}">
+														</h5>
+														<button type="button" class="btn-close" data-bs-dismiss="modal"
+															aria-label="閉じる"></button>
+													</div>
+													<div class="modal-footer">
+														<form method="post"
+															th:action="@{/reviews/__${review.id}__/delete}">
+															<button type="submit"
+																class="btn samuraitravel-btn-danger text-white shadow-sm">削除</button>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

@@ -178,8 +178,10 @@
 									<h2 class="mb-3 text-center">レビュー</h2>
 									<!--　ログイン済みの場合はレビュー投稿可能 -->
 									<div sec:authorize="isAuthenticated()" class="col-lg-4 mx-auto mb-4">
-										<a th:href="@{/reviews/__${house.id}__/register}"
-											class="btn text-white shadow-sm w-100 samuraitravel-btn">レビューを投稿する</a>
+										<div th:unless="${idCheckFlag == true}">
+											<a th:href="@{/reviews/__${house.id}__/register}"
+												class="btn text-white shadow-sm w-100 samuraitravel-btn">レビューを投稿する</a>
+										</div>
 									</div>
 									<!-- レビューが存在しない場合 -->
 									<div th:if="${reviewsList != null && #lists.size(reviewsList) == 0}"
@@ -234,13 +236,12 @@
 																</div>
 															</div>
 														</div>
-
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div th:if="${reviewsList != null && #lists.size(reviewsList) > 0}">
+									<div th:if="${allReviewsList != null && allReviewsList.size() > 6}">
 										<div class="mb-3 text-center">
 											<a th:href="@{/reviews}">すべてのレビューを見る</a>
 										</div>
