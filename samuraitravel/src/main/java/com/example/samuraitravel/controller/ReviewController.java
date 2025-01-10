@@ -51,8 +51,11 @@ public class ReviewController {
 			Model model, HttpSession session) {
 		Page<Review> reviewPage;
 		// 全件検索
-		// Integer houseId = 1;
 		Integer houseId = (Integer) session.getAttribute("houseId");
+		Optional<House> optionalHouse = houseService.findHouseById(houseId);
+		House house = optionalHouse.get();
+		model.addAttribute("house", house);
+
 		reviewPage = reviewService.findByHouseIdOrderByCreatedAtDesc(houseId, pageable);
 		model.addAttribute("reviewPage", reviewPage);
 
@@ -79,7 +82,8 @@ public class ReviewController {
 
 	// レビュー投稿
 	@PostMapping("/{houseId}/create")
-	public String create(@ModelAttribute @Validated ReviewRegisterForm reviewRegisterForm, BindingResult bindingResult,
+	public String create(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
+			@ModelAttribute @Validated ReviewRegisterForm reviewRegisterForm, BindingResult bindingResult,
 			@PathVariable(name = "houseId") Integer houseId, RedirectAttributes redirectAttributes, Model model) {
 		// エラーチェック
 		if (bindingResult.hasErrors()) {
@@ -87,9 +91,15 @@ public class ReviewController {
 			return "reviews/register";
 		}
 
-		reviewService.createReview(reviewRegisterForm, houseId, 1);
+		Integer userId = null;
+		if (userDetailsImpl != null) {
+			User user = userDetailsImpl.getUser();
+			userId = user.getId();
+		}
+
+		reviewService.createReview(reviewRegisterForm, houseId, userId);
 		redirectAttributes.addFlashAttribute("successMessage", "レビューを投稿しました。");
-		return "redirect:/reviews";
+		return "redirect:/houses/" + houseId;
 	}
 
 	// レビューの編集
@@ -100,7 +110,7 @@ public class ReviewController {
 		// エラーチェック
 		if (optionalReview.isEmpty()) {
 			redirectAttributes.addFlashAttribute("errorMessage", "レビューが存在しません。");
-			return "redirect:/reviews";
+			return "redirect:/houses/" + houseId;
 		}
 
 		Review review = optionalReview.get();
@@ -116,12 +126,14 @@ public class ReviewController {
 	// レビューの更新
 	@PostMapping("/{reviewId}/update")
 	public String update(@ModelAttribute @Validated ReviewEditForm reviewEditForm, BindingResult bindingResult,
-			@PathVariable(name = "reviewId") Integer reviewId, RedirectAttributes redirectAttributes, Model model) {
+			@PathVariable(name = "reviewId") Integer reviewId, RedirectAttributes redirectAttributes, Model model,
+			HttpSession session) {
 		Optional<Review> optionalReview = reviewService.findReviewById(reviewId);
+		Integer houseId = (Integer) session.getAttribute("houseId");
 		// 存在チェック
 		if (optionalReview.isEmpty()) {
 			redirectAttributes.addFlashAttribute("errorMessage", "レビューが存在しません。");
-			return "redirect:/reviews";
+			return "redirect:/houses/" + houseId;
 		}
 		Review review = optionalReview.get();
 
@@ -134,23 +146,26 @@ public class ReviewController {
 
 		reviewService.updateReview(reviewEditForm, review);
 		redirectAttributes.addFlashAttribute("successMessage", "レビューを編集しました。");
-		return "redirect:/reviews";
+		return "redirect:/houses/" + houseId;
 	}
 
 	// レビューの削除
 	@PostMapping("/{id}/delete")
-	public String delete(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes) {
+	public String delete(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes,
+			HttpSession session) {
 		Optional<Review> optionalReview = reviewService.findReviewById(id);
+		Integer houseId = (Integer) session.getAttribute("houseId");
 		// レビューの存在チェック
 		if (optionalReview.isEmpty()) {
 			redirectAttributes.addFlashAttribute("errorMessage", "レビューが存在しません。");
-			return "redirect:/reviews";
+			return "redirect:/houses/" + houseId;
 		}
 		// レビュー情報取得
 		Review review = optionalReview.get();
 		// 削除
 		reviewService.deleteReview(review);
 		redirectAttributes.addFlashAttribute("successMessage", "レビューを削除しました。");
-		return "redirect:/reviews";
+
+		return "redirect:/houses/" + houseId;
 	}
 }
