@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.samuraitravel.entity.House;
+import com.example.samuraitravel.entity.Like;
 import com.example.samuraitravel.entity.Review;
 import com.example.samuraitravel.entity.User;
 import com.example.samuraitravel.form.ReservationInputForm;
 import com.example.samuraitravel.security.UserDetailsImpl;
 import com.example.samuraitravel.service.HouseService;
+import com.example.samuraitravel.service.LikeService;
 import com.example.samuraitravel.service.ReviewService;
 
 import jakarta.servlet.http.HttpSession;
@@ -31,10 +33,12 @@ import jakarta.servlet.http.HttpSession;
 public class HouseController {
 	private final HouseService houseService;
 	private final ReviewService reviewService;
+	private final LikeService likeService;
 
-	public HouseController(HouseService houseService, ReviewService reviewService) {
+	public HouseController(HouseService houseService, ReviewService reviewService, LikeService likeService) {
 		this.houseService = houseService;
 		this.reviewService = reviewService;
+		this.likeService = likeService;
 	}
 
 	@GetMapping
@@ -120,6 +124,14 @@ public class HouseController {
 
 		List<Review> allReviewsList = reviewService.findByHouseIdOrderByCreatedAtDescList(house.getId());
 		model.addAttribute("allReviewsList", allReviewsList);
+
+		// お気に入り解除判定フラグの設定
+		Boolean isLikeFlag = false;
+		List<Like> likesList = likeService.findByUserIdAndHouseIdOrderByCreatedAtDesc(userId, houseId);
+		if (!(likesList.isEmpty())) {
+			isLikeFlag = true;
+		}
+		model.addAttribute("isLikeFlag", isLikeFlag);
 
 		return "houses/show";
 	}

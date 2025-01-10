@@ -72,9 +72,11 @@ public class House {
 
 	@OneToMany(mappedBy = "house", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Reservation> reservations;
-	
+
 	@OneToMany(mappedBy = "house", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Review> reviews;
 
+	@OneToMany(mappedBy = "house", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	private List<Like> likes;
 
 }
