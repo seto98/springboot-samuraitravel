@@ -26,6 +26,15 @@
 								<li class="breadcrumb-item"><a th:href="@{/houses}">民宿一覧</a></li>
 								<li class="breadcrumb-item active" aria-current="page">民宿詳細</li>
 							</ol>
+							<div sec:authorize="isAuthenticated()"
+								class="d-flex justify-content-end align-items-end mb-3">
+								<div th:if="${isLikeFlag}">
+									<a th:href="@{/likes/__${house.id}__/delete}">&#9829;お気に入り解除</a>
+								</div>
+								<div th:if="${isLikeFlag == null or isLikeFlag == false}">
+									<a th:href="@{/likes/__${house.id}__/create}">&#9825;お気に入り登録</a>
+								</div>
+							</div>
 						</nav>
 
 						<h1 class="mb-4 text-center" th:text="${house.name}"></h1>

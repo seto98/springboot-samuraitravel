@@ -74,5 +74,16 @@ CREATE TABLE IF NOT EXISTS reviews (
   ,FOREIGN KEY (user_id)  REFERENCES users (id)
  );
 
+-- お気に入り用テーブル生成
+CREATE TABLE IF NOT EXISTS likes (
+   id                  INT          NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID'
+  ,house_id            INT          NOT NULL                            COMMENT '民宿のID'
+  ,user_id             INT          NOT NULL                            COMMENT 'ユーザーのID'
+  ,created_at DATETIME NOT  NULL    DEFAULT CURRENT_TIMESTAMP           COMMENT '作成日時'
+  ,updated_at DATETIME NOT  NULL    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時'
+  ,UNIQUE KEY (house_id, user_id)
+  ,FOREIGN KEY (house_id) REFERENCES houses (id)
+  ,FOREIGN KEY (user_id)  REFERENCES users (id)
+ );
 
 
