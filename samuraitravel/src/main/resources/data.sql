@@ -113,5 +113,6 @@ INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (2
 INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (22, 3, 5, '&#9733&#9734&#9734&#9734&#9734', '【SAMURAI荘】周辺の飲食店が充実していて、楽しめました。');
 INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (23, 3, 6, '&#9733&#9733&#9733&#9733&#9733', '【SAMURAI荘】宿泊費が手頃で、コストパフォーマンスが良かったです。');
 INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (24, 3, 7, '&#9733&#9733&#9733&#9733&#9734', '【SAMURAI荘】静かな環境でゆっくり休めました。');
+INSERT IGNORE INTO reviews (id, house_id, user_id, evaluation, detail) VALUES (25, 4, 1, '&#9733&#9733&#9733&#9733&#9734', '【ゲストハウス SAMURAI】レビュー1件テスト');
 
 

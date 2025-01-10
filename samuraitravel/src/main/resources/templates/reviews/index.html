@@ -23,7 +23,7 @@
 							<li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
 							<li class="breadcrumb-item"><a th:href="@{/houses}">民宿一覧</a></li>
 							<li class="breadcrumb-item">
-								<a th:href="@{/houses/__${reviewPage.getContent().get(0).getHouse().getId()}__}">
+								<a th:href="@{/houses/__${house.getId()}__}">
 									民宿詳細
 								</a>
 							</li>
@@ -33,7 +33,7 @@
 
 					<!-- レビュー一覧表示 -->
 					<h1 class="mb-4 text-center">
-						<span th:text="${reviewPage.getContent().get(0).getHouse().getName()}"></span>のレビュー一覧
+						<span th:text="${house.getName()}"></span>のレビュー一覧
 					</h1>
 					<div class="row row-cols-xl-2 row-cols-5 g-3 mb-5">
 						<div class="col" th:each="review : ${reviewPage}">

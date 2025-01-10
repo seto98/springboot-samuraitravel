@@ -24,7 +24,7 @@
 								<li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
 								<li class="breadcrumb-item"><a th:href="@{/houses}">民宿一覧</a></li>
 								<li class="breadcrumb-item">
-									<a th:href="@{/houses/__${houseId}__}">
+									<a th:href="@{/houses/__${review.getHouse().getId()}__}">
 										民宿詳細
 									</a>
 								</li>
